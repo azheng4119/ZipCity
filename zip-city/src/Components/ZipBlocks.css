@@ -1,0 +1,38 @@
+ul{
+    list-style-type: none;
+    display: flex;
+    background-color: gainsboro;
+    flex-direction: column
+}
+
+#ZipContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* border-style: solid; */
+    flex-wrap: wrap;
+}
+
+.ZipBlock{
+    /* border:solid; */
+    display: flex;
+    align-content: center;
+    padding: 16px;
+    text-align: center;
+    border-radius: 7px;
+    border-style: ridge;
+    font-family: "Comic Sans MS",cursive,sans-serif;
+    font-size: 18px;
+    letter-spacing: 0px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 400;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+ul li:first-child{
+    border-bottom: 1px solid;
+}

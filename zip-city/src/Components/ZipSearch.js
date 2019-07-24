@@ -1,9 +1,37 @@
-import React from 'react'
-
+import React from 'react';
+import './ZipSearch.css';
+import ZipBlocks from './ZipBlocks';
+import axios from 'axios';
 
 class ZipHeader extends React.Component{
     render(){
-        return <div>Zip Search</div>
+        return <h1>Zip Search</h1>
+    }
+}
+
+class ZipInput extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            ZipCode : ''
+        }
+        this.updateZip = this.updateZip.bind(this);
+        this.fetchData = this.fetchData.bind(this);
+    }
+
+    updateZip(event){
+        this.setState({
+            zipCode : event.target.value
+        })
+    }
+    fetchData(){
+        this.props.val(this.state.zipCode);
+    }
+    render(){
+        return <div id = 'zipInput'><span>Zip Code: </span>
+            <input onChange = {this.updateZip}></input>
+            <button onClick = {this.fetchData}>Enter</button>
+        </div>
     }
 }
 
@@ -11,10 +39,40 @@ class ZipHeader extends React.Component{
 class ZipSearch extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            zipCode : '',
+            data : {}
+        }
+        this.updateData = this.updateData.bind(this);
+        this.fetchZipData = this.fetchZipData.bind(this);
+    }
+
+    updateData(val){
+        this.setState({
+            zipCode : val
+        })
+        this.fetchZipData();
+    }
+
+    fetchZipData(){
+        let s = 'http://ctp-zip-api.herokuapp.com/zip/10005';//+this.state.zipCode;
+        axios.get(s)
+        .then(response =>{
+            let wanted = [this.state.zipCode];
+            let result = response.data.filter(zippy => wanted.includes(zippy.zipCode));
+            this.setState({
+                data : result
+            })
+        })
+        .catch(err => console.log(err));
     }
 
     render(){
-        return <div><ZipHeader></ZipHeader></div>
+        return <div>
+            <ZipHeader></ZipHeader>
+            <ZipInput val = {this.updateData}></ZipInput>
+            <ZipBlocks val = {this.state.data}></ZipBlocks>
+        </div>
     }
 }
 
