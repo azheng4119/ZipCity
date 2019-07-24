@@ -2,9 +2,6 @@ import React from 'react'
 import './ZipBlocks.css'
 
 class ZipBlock extends React.Component{
-    constructor(props){
-        super(props);
-    }
     render(){
         return <ul className = "ZipBlock">
                 <li>{this.props.val.City}</li>
