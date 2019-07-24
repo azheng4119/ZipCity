@@ -11,6 +11,7 @@ ul{
     justify-content: space-evenly;
     /* border-style: solid; */
     flex-wrap: wrap;
+    padding: 5vw;
 }
 
 .ZipBlock{

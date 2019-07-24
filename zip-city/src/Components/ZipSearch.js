@@ -41,30 +41,32 @@ class ZipSearch extends React.Component{
         super(props);
         this.state = {
             zipCode : '',
-            data : {}
+            data : []
         }
         this.updateData = this.updateData.bind(this);
         this.fetchZipData = this.fetchZipData.bind(this);
     }
 
     updateData(val){
+        console.log(val);
+        this.fetchZipData(val);
         this.setState({
             zipCode : val
         })
-        this.fetchZipData();
     }
 
-    fetchZipData(){
-        let s = 'http://ctp-zip-api.herokuapp.com/zip/10005';//+this.state.zipCode;
+    async fetchZipData(val){
+        let s = "http://ctp-zip-api.herokuapp.com/zip/"+val;
         axios.get(s)
         .then(response =>{
-            let wanted = [this.state.zipCode];
-            let result = response.data.filter(zippy => wanted.includes(zippy.zipCode));
+            let result = response.data;
             this.setState({
                 data : result
             })
         })
         .catch(err => console.log(err));
+
+        
     }
 
     render(){

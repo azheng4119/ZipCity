@@ -8,31 +8,26 @@ class ZipBlock extends React.Component{
     render(){
         return <ul className = "ZipBlock">
                 <li>{this.props.val.City}</li>
-                <li>{this.props.val.State}</li>
-                <li>{this.props.val.State}</li>
-                <li>{this.props.val.State}</li>
-                <li>{this.props.val.State}</li>
+                <li>State: {this.props.val.State}</li>
+                <li>Location: {this.props.val.Lat},{this.props.val.Long}</li>
+                <li>Population: {this.props.val.EstimatedPopulation}</li>
+                <li>Wages: {this.props.val.TotalWages}</li>
             </ul>
     }
 }
 
 class ZipBlocks extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
-        alert(this.props.val);
-        return <div id ="ZipContainer">
-            {/* {
+        return <div id = "ZipContainer">
+        {
             this.props.val.map(obj => {
-                alert(this.props.val);
-            return (
-                <ZipBlock val={obj}/>
-            )
-        }) */}
-        </div>
-    }
+                return (
+                    <ZipBlock val={obj}/>
+                )
+            })
+        }
+    </div>
 
-}
+    }   
+}  
 export default ZipBlocks;
