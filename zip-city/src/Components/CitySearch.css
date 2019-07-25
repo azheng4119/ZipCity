@@ -1,0 +1,25 @@
+#cityInput{
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    border-radius: 5px;
+    background-color: aqua;
+    border-style: groove;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top:1vh;
+    padding-bottom: 1vh;
+}
+
+#cityInput span{
+    font-size: 24px;
+}
+
+input{
+    border-radius: 5px;
+    border-color: aquamarine;
+    margin-right: .5vw;
+    margin-left: .5vw;
+}

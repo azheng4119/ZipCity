@@ -48,7 +48,6 @@ class ZipSearch extends React.Component{
     }
 
     updateData(val){
-        console.log(val);
         this.fetchZipData(val);
         this.setState({
             zipCode : val
