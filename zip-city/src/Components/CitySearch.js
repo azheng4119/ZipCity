@@ -53,55 +53,63 @@ class CitySearch extends React.Component{
         this.getCityStates = this.getCityStates.bind(this);
     }
 
-    updateData(val){
-        this.fetchCityData(val);
-        this.setState({
+    async updateData(val){
+        await this.fetchCityData(val);
+        await this.setState({
             CityName : val
         })
 
     }
 
     async fetchCityData(val){
+        let result;
         let sx = val.toUpperCase();
         let s = "http://ctp-zip-api.herokuapp.com/city/"+sx;
         axios.get(s)
         .then(response =>{
-            let result = response.data;
+            result = response.data;
             this.setState({
                 data : result
             })
-            this.getCityStates();
+            this.getCityStates(result);
         })
         .catch(err => console.log(err));
     }
 
-    async getCityStates()
+    async getCityStates(results)
     {
         let result = [];
-        for(let i = 0; i < this.state.data.length; i++)
+        for(let i = 0; i < results.length; i++)
         {
-            let sx= "http://ctp-zip-api.herokuapp.com/zip/"+this.state.data[i];
-            axios.get(sx)
-            .then(response =>{
-                let loc = response.data[0].State;
-                if(! result.includes(loc))
-                {
-                    result.push(loc);
-                }
-            })
+            let sx= "http://ctp-zip-api.herokuapp.com/zip/"+results[i];
+
+            let response = await axios.get(sx);
+            let loc = response.data[0].State;
+            console.log("loc", loc)
+            if (!result.includes(loc)) result.push(loc);
+
+            // axios.get(sx)
+            // .then(response =>{
+                // let loc = response.data[0].State;
+            //     if(! result.includes(loc))
+            //     {
+            //         result.push(loc);
+            //     }
+            // })
         }
-        this.setState({
+        console.log("result", result)
+        await this.setState({
             CityStates : result
         })
     }
 
     render(){
-        console.log(this.state.CityStates);
+        console.log("city states from local state", this.state.CityStates);
         return <div>
             <CityHeader></CityHeader>
             <CityInput val = {this.updateData}></CityInput>
             <CityBlocks val = {this.state.data}></CityBlocks>
-            <CityBlocks val = {this.state.CityStates}></CityBlocks>
+            <StateBlocks val = {this.state.CityStates}></StateBlocks>
         </div>
     }
 }
